@@ -15,8 +15,8 @@ class PlanetController extends Controller
             ->addParams($request->only('search', 'page'))
             ->get();
 
-        $response['results'] =  \App\Http\Resources\PlanetResource::collection(
-            collect($planets['results'])->map(fn ($planet) => (object)$planet));
+        $response['results'] = \App\Http\Resources\PlanetResource::collection(
+            collect($planets['results'])->map(fn($planet) => (object)$planet));
 
         return response()->json($response);
 

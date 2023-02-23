@@ -11,20 +11,20 @@ use Illuminate\Http\Request;
 
 class PeopleController extends Controller
 {
-    public function index(SearchRequest $request) : \Illuminate\Http\JsonResponse
+    public function index(SearchRequest $request): \Illuminate\Http\JsonResponse
     {
         $response = (new StarWarsClient())
             ->getPeople()
             ->addParams($request->only('search', 'page'))
             ->get();
 
-        $response['results'] =  PersonResource::collection(
-            collect($response['results'])->map(fn ($person) => (object)$person));
+        $response['results'] = PersonResource::collection(
+            collect($response['results'])->map(fn($person) => (object)$person));
         return response()->json($response);
     }
 
 
-    public function show(Request $request, int $id) : \Illuminate\Http\JsonResponse
+    public function show(Request $request, int $id): \Illuminate\Http\JsonResponse
     {
         $person = (new StarWarsClient())
             ->getPeople($id)

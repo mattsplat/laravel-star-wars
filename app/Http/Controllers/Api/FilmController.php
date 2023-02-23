@@ -14,7 +14,7 @@ class FilmController extends Controller
             ->getFilms()
             ->get();
 
-        $response['results'] =  \App\Http\Resources\FilmResource::collection(
+        $response['results'] = \App\Http\Resources\FilmResource::collection(
             collect($response['results'])->map(fn($film) => (object)$film)
         );
         return response()->json($response);
