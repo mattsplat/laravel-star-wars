@@ -18,6 +18,6 @@ class GalaxyPopulationController extends Controller
             $population += (int)$planet['population'];
         }
 
-        return response()->json(['population' => $population]);
+        return response()->json(['population' => $population, 'planets' => count($planets['results'])]);
     }
 }

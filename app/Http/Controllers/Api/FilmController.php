@@ -19,4 +19,13 @@ class FilmController extends Controller
         );
         return response()->json($response);
     }
+
+    public function show(Request $request, int $id): \Illuminate\Http\JsonResponse
+    {
+        $film = (new \App\Lib\Api\StarWarsClient())
+            ->getFilms($id)
+            ->get();
+
+        return response()->json(\App\Http\Resources\FilmResource::make((object)$film));
+    }
 }

@@ -25,17 +25,18 @@ Route::middleware('api')->group(function () {
 
     // films
     Route::get('films', [App\Http\Controllers\Api\FilmController::class, 'index']);
+    Route::get('films/{id}', [App\Http\Controllers\Api\FilmController::class, 'show']);
 
     // film species
     Route::get('films/{id}/species', [App\Http\Controllers\Api\FilmSpeciesController::class, 'index']);
 
     // species planets
-    Route::get('species/{id}/planets', [App\Http\Controllers\Api\SpeciesPlanetController::class, 'index']);
+    Route::get('species/{id}/planet', [App\Http\Controllers\Api\SpeciesPlanetController::class, 'index']);
 
 
     // planets
     Route::get('planets/galaxy', [App\Http\Controllers\Api\GalaxyPopulationController::class, 'index']);
     Route::get('planets', [App\Http\Controllers\Api\PlanetController::class, 'index']);
-    Route::get('planets/{id}', [App\Http\Controllers\Api\PlanetController::class, 'index']);
+    Route::get('planets/{id}', [App\Http\Controllers\Api\PlanetController::class, 'show']);
 });
 

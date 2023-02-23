@@ -1,66 +1,358 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Star Wars API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This is implements the [Star Wars API](https://swapi.co/).
 
-## About Laravel
+## Routes
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Films
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- [GET] /api/films
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+```json
+{
+    "count": 6,
+    "next": null,
+    "previous": null,
+    "results": [
+        {
+            "id": "1",
+            "title": "A New Hope",
+            "episode_id": 4,
+            "opening_crawl": "It is a period of civil war.\r\nRebel spaceships, striking\r\nfrom a hidden base, have won\r\ntheir first victory against\r\nthe evil Galactic Empire.\r\n\r\nDuring the battle, Rebel\r\nspies managed to steal secret\r\nplans to the Empire's\r\nultimate weapon, the DEATH\r\nSTAR, an armored space\r\nstation with enough power\r\nto destroy an entire planet.\r\n\r\nPursued by the Empire's\r\nsinister agents, Princess\r\nLeia races home aboard her\r\nstarship, custodian of the\r\nstolen plans that can save her\r\npeople and restore\r\nfreedom to the galaxy....",
+            "director": "George Lucas",
+            "producer": "Gary Kurtz, Rick McCallum",
+            "release_date": "1977-05-25",
+            "characters": [
+                "1"
+            ]
+        },
+        {
+            "id": "3",
+            "title": "Return of the Jedi",
+            "episode_id": 6,
+            "opening_crawl": "Luke Skywalker has returned to\r\nhis home planet of Tatooine in\r\nan attempt to rescue his\r\nfriend Han Solo from the\r\nclutches of the vile gangster\r\nJabba the Hutt.\r\n\r\nLittle does Luke know that the\r\nGALACTIC EMPIRE has secretly\r\nbegun construction on a new\r\narmored space station even\r\nmore powerful than the first\r\ndreaded Death Star.\r\n\r\nWhen completed, this ultimate\r\nweapon will spell certain doom\r\nfor the small band of rebels\r\nstruggling to restore freedom\r\nto the galaxy...",
+            "director": "Richard Marquand",
+            "producer": "Howard G. Kazanjian, George Lucas, Rick McCallum",
+            "release_date": "1983-05-25",
+            "characters": [
+                "1",
+                "2"
+            ]
+        }
+    ]
+}
 
-## Learning Laravel
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- [GET] /api/films/:id
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+```json
+{
+    "id": "1",
+    "title": "A New Hope",
+    "episode_id": 4,
+    "opening_crawl": "It is a period of civil war.\r\nRebel spaceships, striking\r\nfrom a hidden base, have won\r\ntheir first victory against\r\nthe evil Galactic Empire.\r\n\r\nDuring the battle, Rebel\r\nspies managed to steal secret\r\nplans to the Empire's\r\nultimate weapon, the DEATH\r\nSTAR, an armored space\r\nstation with enough power\r\nto destroy an entire planet.\r\n\r\nPursued by the Empire's\r\nsinister agents, Princess\r\nLeia races home aboard her\r\nstarship, custodian of the\r\nstolen plans that can save her\r\npeople and restore\r\nfreedom to the galaxy....",
+    "director": "George Lucas",
+    "producer": "Gary Kurtz, Rick McCallum",
+    "release_date": "1977-05-25",
+    "characters": [
+        "1",
+        "2",
+        "3",
+        "4"
+    ]
+}
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- [GET] /api/films/:id/species
 
-## Laravel Sponsors
+```json
+[
+    {
+        "name": "Human",
+        "classification": "mammal",
+        "designation": "sentient",
+        "average_height": "180",
+        "skin_colors": "caucasian, black, asian, hispanic",
+        "hair_colors": "blonde, brown, black, red",
+        "eye_colors": "brown, blue, green, hazel, grey, amber",
+        "average_lifespan": "120",
+        "homeworld": "https://swapi.dev/api/planets/9/",
+        "language": "Galactic Basic",
+        "people": [
+            "https://swapi.dev/api/people/66/",
+            "https://swapi.dev/api/people/67/",
+            "https://swapi.dev/api/people/68/",
+            "https://swapi.dev/api/people/74/"
+        ],
+        "films": [
+            "https://swapi.dev/api/films/1/",
+            "https://swapi.dev/api/films/2/",
+            "https://swapi.dev/api/films/3/",
+            "https://swapi.dev/api/films/4/",
+            "https://swapi.dev/api/films/5/",
+            "https://swapi.dev/api/films/6/"
+        ],
+        "created": "2014-12-10T13:52:11.567000Z",
+        "edited": "2014-12-20T21:36:42.136000Z",
+        "url": "https://swapi.dev/api/species/1/"
+    },
+    {
+        "name": "Droid",
+        "classification": "artificial",
+        "designation": "sentient",
+        "average_height": "n/a",
+        "skin_colors": "n/a",
+        "hair_colors": "n/a",
+        "eye_colors": "n/a",
+        "average_lifespan": "indefinite",
+        "homeworld": null,
+        "language": "n/a",
+        "people": [
+            "https://swapi.dev/api/people/2/",
+            "https://swapi.dev/api/people/3/",
+            "https://swapi.dev/api/people/8/",
+            "https://swapi.dev/api/people/23/"
+        ],
+        "films": [
+            "https://swapi.dev/api/films/1/",
+            "https://swapi.dev/api/films/2/",
+            "https://swapi.dev/api/films/3/",
+            "https://swapi.dev/api/films/4/",
+            "https://swapi.dev/api/films/5/",
+            "https://swapi.dev/api/films/6/"
+        ],
+        "created": "2014-12-10T15:16:16.259000Z",
+        "edited": "2014-12-20T21:36:42.139000Z",
+        "url": "https://swapi.dev/api/species/2/"
+    }
+]
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### People
 
-### Premium Partners
+- [GET] /api/people
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+```json
+{
+    "count": 82,
+    "next": "https://swapi.dev/api/people/?page=2",
+    "previous": null,
+    "results": [
+        {
+            "name": "Luke Skywalker",
+            "height": "172",
+            "mass": "77",
+            "hair_color": "blond",
+            "skin_color": "fair",
+            "eye_color": "blue",
+            "birth_year": "19BBY",
+            "gender": "male",
+            "id": "1"
+        },
+        {
+            "name": "C-3PO",
+            "height": "167",
+            "mass": "75",
+            "hair_color": "n/a",
+            "skin_color": "gold",
+            "eye_color": "yellow",
+            "birth_year": "112BBY",
+            "gender": "n/a",
+            "id": "2"
+        }
+    ]
+}
+```
 
-## Contributing
+- [GET] /api/people/:id
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```json
+{
+    "name": "Luke Skywalker",
+    "height": "172",
+    "mass": "77",
+    "hair_color": "blond",
+    "skin_color": "fair",
+    "eye_color": "blue",
+    "birth_year": "19BBY",
+    "gender": "male",
+    "id": "1"
+}
+```
 
-## Code of Conduct
+- [GET] /api/people/:id/starships
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```json
+[
+    {
+        "name": "Imperial shuttle",
+        "model": "Lambda-class T-4a shuttle",
+        "manufacturer": "Sienar Fleet Systems",
+        "cost_in_credits": "240000",
+        "length": "20",
+        "max_atmosphering_speed": "850",
+        "crew": "6",
+        "passengers": "20",
+        "cargo_capacity": "80000",
+        "consumables": "2 months",
+        "hyperdrive_rating": "1.0",
+        "MGLT": "50",
+        "starship_class": "Armed government transport",
+        "id": "22"
+    },
+    {
+        "name": "X-wing",
+        "model": "T-65 X-wing",
+        "manufacturer": "Incom Corporation",
+        "cost_in_credits": "149999",
+        "length": "12.5",
+        "max_atmosphering_speed": "1050",
+        "crew": "1",
+        "passengers": "0",
+        "cargo_capacity": "110",
+        "consumables": "1 week",
+        "hyperdrive_rating": "1.0",
+        "MGLT": "100",
+        "starship_class": "Starfighter",
+        "id": "12"
+    }
+]
+```
 
-## Security Vulnerabilities
+### Planets
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- [GET] /api/planets
+```json
+{
+  "results": [
+    {
+      "name": "Tatooine",
+      "rotation_period": "23",
+      "orbital_period": "304",
+      "diameter": "10465",
+      "climate": "arid",
+      "gravity": "1 standard",
+      "terrain": "desert",
+      "surface_water": "1",
+      "population": "200000",
+      "id": "1"
+    },
+    {
+      "name": "Alderaan",
+      "rotation_period": "24",
+      "orbital_period": "364",
+      "diameter": "12500",
+      "climate": "temperate",
+      "gravity": "1 standard",
+      "terrain": "grasslands, mountains",
+      "surface_water": "40",
+      "population": "2000000000",
+      "id": "2"
+    },
+    {
+      "name": "Yavin IV",
+      "rotation_period": "24",
+      "orbital_period": "4818",
+      "diameter": "10200",
+      "climate": "temperate, tropical",
+      "gravity": "1 standard",
+      "terrain": "jungle, rainforests",
+      "surface_water": "8",
+      "population": "1000",
+      "id": "3"
+    }
+  ]
+}
+```
+- [GET] /api/planets/:id
+```json
+{
+  "name": "Tatooine",
+  "rotation_period": "23",
+  "orbital_period": "304",
+  "diameter": "10465",
+  "climate": "arid",
+  "gravity": "1 standard",
+  "terrain": "desert",
+  "surface_water": "1",
+  "population": "200000",
+  "id": "1"
+}
+```
+- [GET] /api/planets/galaxy
+```json
+{
+  "population": 1007536201000,
+  "planets": 10
+}
+```
+### Species
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- [GET] /api/species
+```json
+{
+  "count": 37,
+  "next": "https://swapi.dev/api/species/?page=2",
+  "previous": null,
+  "results": [
+    {
+      "name": "Human",
+      "classification": "mammal",
+      "designation": "sentient",
+      "average_height": "180",
+      "skin_colors": "caucasian, black, asian, hispanic",
+      "hair_colors": "blonde, brown, black, red",
+      "eye_colors": "brown, blue, green, hazel, grey, amber",
+      "average_lifespan": "120",
+      "homeworld": "https://swapi.dev/api/planets/9/",
+      "language": "Galactic Basic",
+      "id": "1"
+    },
+    {
+      "name": "Droid",
+      "classification": "artificial",
+      "designation": "sentient",
+      "average_height": "n/a",
+      "skin_colors": "n/a",
+      "hair_colors": "n/a",
+      "eye_colors": "n/a",
+      "average_lifespan": "indefinite",
+      "homeworld": null,
+      "language": "n/a",
+      "id": "2"
+    }
+  ]
+}
+```
+- [GET] /api/species/:id
+```json
+{
+  "name": "Human",
+  "classification": "mammal",
+  "designation": "sentient",
+  "average_height": "180",
+  "skin_colors": "caucasian, black, asian, hispanic",
+  "hair_colors": "blonde, brown, black, red",
+  "eye_colors": "brown, blue, green, hazel, grey, amber",
+  "average_lifespan": "120",
+  "homeworld": "https://swapi.dev/api/planets/9/",
+  "language": "Galactic Basic",
+  "id": "1"
+}
+```
+- [GET] /api/species/:id/planet
+```json
+{
+  "name": "Tatooine",
+  "rotation_period": "23",
+  "orbital_period": "304",
+  "diameter": "10465",
+  "climate": "arid",
+  "gravity": "1 standard",
+  "terrain": "desert",
+  "surface_water": "1",
+  "population": "200000",
+  "id": "1"
+}
+```
