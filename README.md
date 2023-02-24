@@ -1,7 +1,7 @@
 # Star Wars API
 
 This is implements the [Star Wars API](https://swapi.co/).
-A web demo is available at root path.
+A web demo is available at [https://starwars.mattsplat.net/](https://starwars.mattsplat.net/).
 
 ## Dev Setup
 composer install
