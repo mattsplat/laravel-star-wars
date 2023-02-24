@@ -25,6 +25,9 @@ class FilmController extends Controller
         $film = (new \App\Lib\Api\StarWarsClient())
             ->getFilms($id)
             ->get();
+        if(empty($film)) {
+            return response()->json('Not found', 404);
+        }
 
         return response()->json(\App\Http\Resources\FilmResource::make((object)$film));
     }

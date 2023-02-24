@@ -56,7 +56,7 @@ abstract class CacheableApiClient
     public function get(): array
     {
 
-        return Cache::remember($this->getCacheKey(), $this->cacheTime, function () {
+        $response = Cache::remember($this->getCacheKey(), $this->cacheTime, function () {
             try {
                 $response = $this->client->get($this->path, [
                     'query' => $this->params
@@ -67,6 +67,11 @@ abstract class CacheableApiClient
 
             return json_decode($response->getBody(), true);
         });
+
+        // reset params
+        $this->params = [];
+
+        return $response;
     }
 
     protected function setPath(string $path): self

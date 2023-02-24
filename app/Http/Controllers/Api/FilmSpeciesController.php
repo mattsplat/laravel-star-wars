@@ -3,24 +3,24 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Lib\UseCase\FilmUseCase;
 use Illuminate\Http\Request;
 
 class FilmSpeciesController extends Controller
 {
-    // get all species from film
+    private FilmUseCase $useCase;
+
+    public function __construct()
+    {
+        $this->useCase = app(FilmUseCase::class);
+    }
+
     public function index(Request $request, $filmId): \Illuminate\Http\JsonResponse
     {
-        $film = (new \App\Lib\Api\StarWarsClient())
-            ->getFilms($filmId)
-            ->get();
-
-        $species = [];
-        foreach ($film['species'] as $speciesUrl) {
-            $species[] = (new \App\Lib\Api\StarWarsClient())
-                ->getSpecies(basename($speciesUrl))
-                ->get();
+        $species = $this->useCase->getFilmSpecies($filmId);
+        if(empty($species)) {
+            return response()->json('Not found', 404);
         }
-
         return response()->json($species);
     }
 }

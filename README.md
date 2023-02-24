@@ -1,8 +1,15 @@
 # Star Wars API
 
 This is implements the [Star Wars API](https://swapi.co/).
+A web demo is available at root path.
 
-## Routes
+## Dev Setup
+composer install
+php artisan serve
+npm run dev
+
+
+## API Routes
 
 ### Films
 

@@ -2,7 +2,7 @@
 
 namespace App\Lib\Api;
 
-class StarWarsClient extends CacheableApiClient
+class StarWarsClient extends CacheableApiClient implements StarWarsApiClientInterface
 {
     protected string $baseUri = 'https://swapi.dev/api/';
     protected string $cacheKey = 'starwars';

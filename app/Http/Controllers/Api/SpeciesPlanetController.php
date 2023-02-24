@@ -3,21 +3,26 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PlanetResource;
+use App\Lib\UseCase\SpeciesUseCase;
 use Illuminate\Http\Request;
 
 class SpeciesPlanetController extends Controller
 {
+    private SpeciesUseCase $useCase;
+
+    public function __construct()
+    {
+        $this->useCase = app(SpeciesUseCase::class);
+    }
+
     public function index(Request $request, $id): \Illuminate\Http\JsonResponse
     {
-        $response = (new \App\Lib\Api\StarWarsClient())
-            ->getSpecies($id)
-            ->get();
+        $planet = $this->useCase->getSpeciesPlanet($id);
+        if(empty($planet)) {
+            return response()->json('Not found', 404);
+        }
 
-        // get planets of species
-        $planet = (new \App\Lib\Api\StarWarsClient())
-            ->getPlanets(basename($response['homeworld']))
-            ->get();
-
-        return response()->json($planet);
+        return response()->json(PlanetResource::make((object)$planet));
     }
 }
