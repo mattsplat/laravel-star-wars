@@ -9,16 +9,27 @@ class PlanetUseCase extends AbstractUseCase
         return $this->client->getPlanets($id)->get();
     }
 
-    public function getPlanets(): array
+    public function getPlanets(array $params = []): array
     {
-        return $this->client->getPlanets()->get();
+        return $this->client->getPlanets()
+            ->addParams($params)
+            ->get();
     }
 
     public function getGalaxyInfo(): array
     {
-        $planets = $this->client->getPlanets()->get();
+        $planets = [];
+        $page = 1;
+        do {
+            $response = $this->client->getPlanets()
+                ->addParams(['page' => $page])
+                ->get();
+            $planets = array_merge($planets, $response['results']);
+            $page++;
+        } while (!empty($response['next']));
+
         $population = 0;
-        foreach ($planets['results'] as $planet) {
+        foreach ($planets as $planet) {
             $population += (int)$planet['population'];
         }
         $planets = count($planets);
